@@ -1,0 +1,61 @@
+{
+    "TwoHandedAxe": [
+        {
+            "DataTableID": "208",
+            "EventDataTableID": "",
+            "AssetID": "KatanaInuBlueZillaAxes_1",
+            "AssetName": "Blue Zilla",
+            "AssetDescription": "The head of a mythical beast sits atop of this mighty axe.",
+            "AssetRarity": "UNCOMMON",
+            "AssetUniqueIndex": ""
+        },
+        {
+            "DataTableID": "208",
+            "EventDataTableID": "",
+            "AssetID": "KatanaInuBlueZillaAxes_2",
+            "AssetName": "Blue Zilla",
+            "AssetDescription": "The head of a mythical beast sits atop of this mighty axe.",
+            "AssetRarity": "RARE",
+            "AssetUniqueIndex": ""
+        },
+        {
+            "DataTableID": "208",
+            "EventDataTableID": "",
+            "AssetID": "KatanaInuBlueZillaAxes_3",
+            "AssetName": "Blue Zilla",
+            "AssetDescription": "The head of a mythical beast sits atop of this mighty axe.",
+            "AssetRarity": "MYSTICAL",
+            "AssetUniqueIndex": ""
+        },
+        {
+            "DataTableID": "208",
+            "EventDataTableID": "",
+            "AssetID": "KatanaInuBlueZillaAxes_4",
+            "AssetName": "Blue Zilla",
+            "AssetDescription": "The head of a mythical beast sits atop of this mighty axe.",
+            "AssetRarity": "LEGENDARY",
+            "AssetUniqueIndex": ""
+        },
+        {
+            "DataTableID": "208",
+            "EventDataTableID": "",
+            "AssetID": "KatanaInuBlueZillaAxes_5",
+            "AssetName": "Blue Zilla",
+            "AssetDescription": "The head of a mythical beast sits atop of this mighty axe.",
+            "AssetRarity": "IMMORTAL",
+            "AssetUniqueIndex": ""
+        }
+    ]
+}
+
+
+{
+    "ItemName": "TwoHandedAxe",
+    "AssetID": "KatanaInuBlueZillaAxes_5",
+    "AssetName": "Blue Zilla",
+    "AssetProperties": {
+        "AssetRarity": "IMMORTAL",
+        ... // Some more properties if has
+    },
+    "AssetDescription": "The head of a mythical beast sits atop of this mighty axe.",
+}
