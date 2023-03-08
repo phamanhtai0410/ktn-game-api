@@ -17,17 +17,17 @@ services:
     command: gunicorn --bind 0.0.0.0:5005 --workers=1 main:app --log-level=debug -c conf/gunicorn.py --timeout 0
   
   
-  # ktn-game-api-queue-worker:
-  #   image: ktn-dapp-api
-  #   build: 
-  #     context: .
-  #     dockerfile: Dockerfile-server
-  #   restart: always
-  #   volumes:
-  #     - ./:/webapps
-  #   networks:
-  #     - base-network
-  #   command: celery --app worker worker -Q katana-dapp-dapp-api-queue -l INFO -c 4
+  ktn-game-api-queue-worker:
+    image: ktn-dapp-api
+    build: 
+      context: .
+      dockerfile: Dockerfile-server
+    restart: always
+    volumes:
+      - ./:/webapps
+    networks:
+      - base-network
+    command: celery --app worker worker -Q katana-game-api-queue -l INFO -c 4
 networks:
   base-network:
     external: true
