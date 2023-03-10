@@ -3,7 +3,7 @@ version: "3"
 services:
   #serivce: 
   ktn-game-api:
-    image: ktn-dapp-api
+    image: ktn-game-api
     build: 
       context: .
       dockerfile: Dockerfile-server
@@ -11,14 +11,14 @@ services:
     volumes:
       - ./:/webapps
     ports:
-      - 6007:5005
+      - 6001:5005
     networks:
       - base-network
-    command: gunicorn --bind 0.0.0.0:5005 --workers=1 main:app --log-level=debug -c conf/gunicorn.py --timeout 0
+    command: gunicorn --bind 0.0.0.0:5005 --workers=3 main:app --log-level=debug -c conf/gunicorn.py --timeout 0
   
   
   ktn-game-api-queue-worker:
-    image: ktn-dapp-api
+    image: ktn-game-api
     build: 
       context: .
       dockerfile: Dockerfile-server
