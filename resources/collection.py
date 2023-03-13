@@ -17,7 +17,6 @@ class CollectionResource(Resource):
     )
     def post(self, form_data):
         _res = CollectionHelper.handle_submitted_game_item(form_data=form_data)
-        # print("*** RES : ", _res)
         return {
             'status': 'PROCESSING'
         }

@@ -15,15 +15,23 @@ class PropertiesSchema(Schema):
     DataTableID = fields.Str(required=True)
     EventDataTableID = fields.Str()
     AssetID = fields.Str(required=True)
-    AssetName = fields.Str(required=True)
     AssetDescription = fields.Str(required=True)
     AssetRarity = fields.Str(required=True)
     AssetUniqueIndex = fields.Str()
     
-class CollectionSubmitForm(Schema):
+
+class ItemDetail(Schema):
     class Meta:
         unknown = EXCLUDE
     
     item_name = fields.Str(required=True)
     types_list = fields.List(fields.Nested(PropertiesSchema), required=True)
+    
+class CollectionSubmitForm(Schema):
+    class Meta:
+        unknown = EXCLUDE
+    
+    items = fields.List(fields.Nested(ItemDetail), required=True)
+
+   
 
