@@ -18,7 +18,8 @@ class PropertiesSchema(Schema):
     AssetDescription = fields.Str(required=True)
     AssetRarity = fields.Str(required=True)
     AssetUniqueIndex = fields.Str()
-    
+    AnimationModelUrl = fields.Str()
+    ImageUrl = fields.Str()
 
 class ItemDetail(Schema):
     class Meta:
