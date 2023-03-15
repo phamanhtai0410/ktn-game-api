@@ -8,7 +8,7 @@ import sentry_sdk
 from pydash import get
 
 from connect import dlm
-from models import CollectionModel
+from models import CollectionModel, AdminDefaultConfigsModel
 from pydash import get
 from enums import CollectionDefault
 from exceptions.collection import TooLongItemList
@@ -37,12 +37,14 @@ class CollectionHelper:
             if len(_items) > 10:
                 raise TooLongItemList
             for _item in _items:
+                # Parse data from json
                 _item_types = get(_item, "types_list")
                 _item_name = get(_item, "item_name")
                 _type0 = _item_types[0]
                 _itemID = get(_type0, "DataTableID")
                 _description = get(_type0, "AssetDescription")
 
+                # Add rate for the types list
                 _types_list_added_rate = [
                     {
                         **_type,
@@ -51,9 +53,22 @@ class CollectionHelper:
                     for _type in _item_types
                 ]
 
+                # Increase Max_id for `collection_id`
                 _collections = list(CollectionModel.find(filter={}))
                 _max_id = max([get(_item, "collection_id") for _item in _collections])
 
+                # Load default configs's value in the current state of the system
+                _total_supply_default = get(AdminDefaultConfigsModel.find_one(filter={
+                    'type': 'NFT',
+                    'name': 'TOTAL_SUPPLY'
+                }), "value", CollectionDefault.TOTAL_SUPPLY)
+
+                _royalty_rate_default = get(AdminDefaultConfigsModel.find_one(filter={
+                    'type': 'ROYALTY',
+                    'name': 'RATE'
+                }), "value", CollectionDefault.ROYALTY_RATE)
+    
+                # Create a record of new `DRAFT` collection
                 CollectionModel.insert_one(
                     row={
                         "collection_id": _max_id + 1,
@@ -63,9 +78,9 @@ class CollectionHelper:
                         "types_list": _types_list_added_rate,
                         "deployed": False,
                         # Royalty
-                        "royalty_rate": CollectionDefault.ROYALTY_RATE,
+                        "royalty_rate": int(_royalty_rate_default),
                         # Total Supply
-                        "total_supply": CollectionDefault.TOTAL_SUPPLY,
+                        "total_supply": int(_total_supply_default),
                         "created_by": "game@launcher"
                     }
                 )

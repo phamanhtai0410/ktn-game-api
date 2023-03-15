@@ -2,5 +2,5 @@
 
 
 class CollectionDefault:
-    ROYALTY_RATE = 20
+    ROYALTY_RATE = 2000
     TOTAL_SUPPLY = 10000
