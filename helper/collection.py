@@ -53,6 +53,19 @@ class CollectionHelper:
                     for _type in _item_types
                 ]
 
+                # Add default Price
+                _default_price = get(AdminDefaultConfigsModel.find_one(filter={
+                    'type': 'NFT',
+                    'name': 'PRICE'
+                }), "value", CollectionDefault.PRICE)
+
+                _types_list_added_price = [
+                    {
+                        **_type,
+                        "price": _default_price
+                    } for _type in _types_list_added_rate
+                ]
+
                 # Increase Max_id for `collection_id`
                 _collections = list(CollectionModel.find(filter={}))
                 _max_id = max([get(_item, "collection_id") for _item in _collections])
@@ -75,7 +88,7 @@ class CollectionHelper:
                         "name": _item_name,
                         "symbol": f"KTN_{_itemID}",
                         "description": _description,
-                        "types_list": _types_list_added_rate,
+                        "types_list": _types_list_added_price,
                         "deployed": False,
                         # Royalty
                         "royalty_rate": int(_royalty_rate_default),
