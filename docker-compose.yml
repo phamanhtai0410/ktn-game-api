@@ -3,13 +3,14 @@ version: "3"
 services:
   #serivce: 
   ktn-game-api:
-    image: ktn-game-api
-    build: 
-      context: .
-      dockerfile: Dockerfile-server
+    image: [IMAGE_REPO]
+#    build: 
+#      context: .
+#      dockerfile: Dockerfile-server
     restart: always
-    volumes:
-      - ./:/webapps
+#    volumes:
+#      - ./:/webapps
+
     ports:
       - 6001:5005
     networks:
@@ -18,13 +19,13 @@ services:
   
   
   ktn-game-api-queue-worker:
-    image: ktn-game-api
-    build: 
-      context: .
-      dockerfile: Dockerfile-server
+    image: [IMAGE_REPO]
+    # build: 
+    #   context: .
+    #   dockerfile: Dockerfile-server
     restart: always
-    volumes:
-      - ./:/webapps
+    # volumes:
+    #   - ./:/webapps
     networks:
       - base-network
     command: celery --app worker worker -Q katana-game-api-queue -l INFO -c 4
