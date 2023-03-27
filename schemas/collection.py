@@ -23,14 +23,16 @@ class PropertiesSchema(Schema):
 
 class ItemDetail(Schema):
     class Meta:
-        unknown = EXCLUDE
+        unknown = INCLUDE
     
     item_name = fields.Str(required=True)
+    category = fields.Str(default='Character')
+    chain = fields.Str(default='BSC')
     types_list = fields.List(fields.Nested(PropertiesSchema), required=True)
     
 class CollectionSubmitForm(Schema):
     class Meta:
-        unknown = EXCLUDE
+        unknown = INCLUDE
     
     items = fields.List(fields.Nested(ItemDetail), required=True)
 

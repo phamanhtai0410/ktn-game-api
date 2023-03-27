@@ -32,6 +32,7 @@ class CollectionHelper:
 
     @staticmethod
     def handle_submitted_game_item(form_data):
+        print(form_data)
         try:
             _items = get(form_data, "items")
             if len(_items) > 10:
@@ -40,6 +41,9 @@ class CollectionHelper:
                 # Parse data from json
                 _item_types = get(_item, "types_list")
                 _item_name = get(_item, "item_name")
+                _category = get(_item, 'category', 'Character')
+                _chain = get(_item, 'chain', 'BSC')
+
                 _type0 = _item_types[0]
                 _itemID = get(_type0, "DataTableID")
                 _description = get(_type0, "AssetDescription")
@@ -80,7 +84,17 @@ class CollectionHelper:
                     'type': 'ROYALTY',
                     'name': 'RATE'
                 }), "value", CollectionDefault.ROYALTY_RATE)
-    
+
+                _commision_default = get(AdminDefaultConfigsModel.find_one(filter={
+                    'type': 'NFT',
+                    'name': 'COMMISSION'
+                }), "value", CollectionDefault.COMMISSION)
+                
+                _commision_level_2_default = get(AdminDefaultConfigsModel.find_one(filter={
+                    'type': 'NFT',
+                    'name': 'COMMISSION'
+                }), "value", CollectionDefault.COMMISSION_LEVEL_2)
+
                 # Create a record of new `DRAFT` collection
                 CollectionModel.insert_one(
                     row={
@@ -88,6 +102,10 @@ class CollectionHelper:
                         "name": _item_name,
                         "symbol": f"KTN_{_itemID}",
                         "description": _description,
+                        "category": _category,
+                        "commission": float(_commision_default),
+                        "commission_level_2": float(_commision_level_2_default),
+                        "chain": _chain,
                         "types_list": _types_list_added_price,
                         "deployed": False,
                         # Royalty
