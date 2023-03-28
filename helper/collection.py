@@ -95,6 +95,11 @@ class CollectionHelper:
                     'name': 'COMMISSION'
                 }), "value", CollectionDefault.COMMISSION_LEVEL_2)
 
+                _discount_default = get(AdminDefaultConfigsModel.find_one(filter={
+                    'type': 'NFT',
+                    'name': 'DISCOUNT'
+                }), "value", CollectionDefault.DISCOUNT)
+
                 # Create a record of new `DRAFT` collection
                 CollectionModel.insert_one(
                     row={
@@ -105,6 +110,7 @@ class CollectionHelper:
                         "category": _category,
                         "commission": float(_commision_default),
                         "commission_level_2": float(_commision_level_2_default),
+                        "discount": float(_discount_default),
                         "chain": _chain,
                         "types_list": _types_list_added_price,
                         "deployed": False,
