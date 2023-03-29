@@ -72,7 +72,10 @@ class CollectionHelper:
 
                 # Increase Max_id for `collection_id`
                 _collections = list(CollectionModel.find(filter={}))
-                _max_id = max([get(_item, "collection_id") for _item in _collections])
+                if not len(_collections):
+                    _max_id = 1
+                else:
+                    _max_id = max([get(_item, "collection_id") for _item in _collections])
 
                 # Load default configs's value in the current state of the system
                 _total_supply_default = get(AdminDefaultConfigsModel.find_one(filter={
