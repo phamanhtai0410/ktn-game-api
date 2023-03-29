@@ -42,7 +42,7 @@ class CollectionHelper:
                 _item_types = get(_item, "types_list")
                 _item_name = get(_item, "item_name")
                 _category = get(_item, 'category', 'Character')
-                _chain = get(_item, 'chain', 'BSC')
+                _chain = get(_item, 'chain', '')
 
                 _type0 = _item_types[0]
                 _itemID = get(_type0, "DataTableID")
