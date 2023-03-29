@@ -27,7 +27,7 @@ class ItemDetail(Schema):
     
     item_name = fields.Str(required=True)
     category = fields.Str(default='Character')
-    chain = fields.Str(default='BSC')
+    chain = fields.Str()
     types_list = fields.List(fields.Nested(PropertiesSchema), required=True)
     
 class CollectionSubmitForm(Schema):
