@@ -15,7 +15,7 @@ class PropertiesSchema(Schema):
     DataTableID = fields.Str(required=True)
     EventDataTableID = fields.Str()
     AssetID = fields.Str(required=True)
-    AssetDescription = fields.Str(required=True)
+    AssetDescription = fields.Str(missing='')
     AssetRarity = fields.Str(required=True)
     AssetUniqueIndex = fields.Str()
     AnimationModelUrl = fields.Str()
