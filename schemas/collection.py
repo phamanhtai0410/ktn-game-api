@@ -26,7 +26,7 @@ class ItemDetail(Schema):
         unknown = INCLUDE
     
     item_name = fields.Str(required=True)
-    category = fields.Str(default='Character')
+    category = fields.Str(default='character')
     chain = fields.Str()
     types_list = fields.List(fields.Nested(PropertiesSchema), required=True)
     
