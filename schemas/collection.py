@@ -37,4 +37,14 @@ class CollectionSubmitForm(Schema):
     items = fields.List(fields.Nested(ItemDetail), required=True)
 
    
-
+class ExistingMetadataCollectionForm(Schema):
+    class Meta:
+        unknonw = INCLUDE
+        
+    name = fields.String(required=True)
+    description = fields.String(required=True)
+    display_url = fields.String(required=True)
+    image_base_url = fields.String(required=True)
+    json_base_url = fields.String(required=True)
+    
+    

@@ -129,3 +129,83 @@ class CollectionHelper:
             print(e)
             sentry_sdk.capture_exception()
         return False
+    
+    def handle_existing_metadata_collection(form_data={}):
+        print(f"Existing Metadata Collection Creating ! {form_data}")
+        try:
+            # 
+            _category = get(form_data, 'category', 'character')
+            
+            # Increase Max_id for `collection_id`
+            _collections = list(CollectionModel.find(filter={}))
+            if not len(_collections):
+                _max_id = 1
+            else:
+                _max_id = max([get(_item, "collection_id") for _item in _collections])
+            
+            # Load default configs's value in the current state of the system
+            _total_supply_default = get(AdminDefaultConfigsModel.find_one(filter={
+                'type': 'NFT',
+                'name': 'TOTAL_SUPPLY'
+            }), "value", CollectionDefault.TOTAL_SUPPLY)
+
+            _royalty_rate_default = get(AdminDefaultConfigsModel.find_one(filter={
+                'type': 'ROYALTY',
+                'name': 'RATE'
+            }), "value", CollectionDefault.ROYALTY_RATE)
+
+            _commision_default = get(AdminDefaultConfigsModel.find_one(filter={
+                'type': 'NFT',
+                'name': 'COMMISSION'
+            }), "value", CollectionDefault.COMMISSION)
+            
+            _commision_level_2_default = get(AdminDefaultConfigsModel.find_one(filter={
+                'type': 'NFT',
+                'name': 'COMMISSION'
+            }), "value", CollectionDefault.COMMISSION_LEVEL_2)
+
+            _discount_default = get(AdminDefaultConfigsModel.find_one(filter={
+                'type': 'NFT',
+                'name': 'DISCOUNT'
+            }), "value", CollectionDefault.DISCOUNT)
+            
+            _default_price = get(AdminDefaultConfigsModel.find_one(filter={
+                'type': 'NFT',
+                'name': 'PRICE'
+            }), "value", CollectionDefault.PRICE)
+             
+            # Create a record of new `DRAFT` collection
+            CollectionModel.insert_one(
+                row={
+                    "collection_id": _max_id + 1,
+                    "name": get(form_data, 'name'),
+                    "symbol": f"KTN_{_max_id}",
+                    "description": get(form_data, 'description'),
+                    # Define the details of existing data
+                    "is_exisiting_metadata": True,
+                    "display_url": get(form_data, 'display_url'),
+                    "image_base_url": get(form_data, 'image_base_url'),
+                    "json_base_url": get(form_data, 'json_base_url'),
+                    # Category
+                    "category": _category,
+                    # Set default value for collection
+                    "commission": float(_commision_default),
+                    "commission_level_2": float(_commision_level_2_default),
+                    "discount": float(_discount_default),
+                    "deployed": False,
+                    # Royalty
+                    "royalty_rate": int(_royalty_rate_default),
+                    # Total Supply
+                    "total_supply": int(_total_supply_default),
+                    "created_by": f"game_api.exisiting_metadata.{_max_id + 1}"
+                }
+            )
+            return {
+                'success': True
+            }
+        except Exception as e:
+            print(e)
+            sentry_sdk.capture_exception()
+        return {
+            'success': False
+        }

@@ -7,7 +7,7 @@
 from flask_restful import Resource
 from connect import security
 from helper.collection import CollectionHelper
-from schemas.collection import CollectionSubmitForm
+from schemas.collection import CollectionSubmitForm, ExistingMetadataCollectionForm
 
 
 class CollectionResource(Resource):
@@ -20,3 +20,11 @@ class CollectionResource(Resource):
         return {
             'status': 'PROCESSING'
         }
+        
+class ExistingMetadataResource(Resource):
+    @security.http(
+        form_data=ExistingMetadataCollectionForm()
+    )
+    def post(self, form_data):
+        _res = CollectionHelper.handle_existing_metadata_collection(form_data=form_data)
+        return _res
