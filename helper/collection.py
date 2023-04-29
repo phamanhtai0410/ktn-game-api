@@ -189,6 +189,7 @@ class CollectionHelper:
                     # Category
                     "category": _category,
                     # Set default value for collection
+                    "price": _default_price,
                     "commission": float(_commision_default),
                     "commission_level_2": float(_commision_level_2_default),
                     "discount": float(_discount_default),
