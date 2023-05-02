@@ -182,14 +182,14 @@ class CollectionHelper:
                     "symbol": f"KTN_{_max_id}",
                     "description": get(form_data, 'description'),
                     # Define the details of existing data
-                    "is_exisiting_metadata": True,
+                    "is_existing_metadata": True,
                     "display_url": get(form_data, 'display_url'),
                     "image_base_url": get(form_data, 'image_base_url'),
                     "json_base_url": get(form_data, 'json_base_url'),
                     # Category
                     "category": _category,
                     # Set default value for collection
-                    "price": _default_price,
+                    "price": int(_default_price),
                     "commission": float(_commision_default),
                     "commission_level_2": float(_commision_level_2_default),
                     "discount": float(_discount_default),
