@@ -66,7 +66,8 @@ class CollectionHelper:
                 _types_list_added_price = [
                     {
                         **_type,
-                        "price": _default_price
+                        "price": _default_price,
+                        "whitelist_price": _default_price
                     } for _type in _types_list_added_rate
                 ]
 
@@ -190,6 +191,7 @@ class CollectionHelper:
                     "category": _category,
                     # Set default value for collection
                     "price": float(_default_price),
+                    "whitelist_price": float(_default_price),
                     "commission": float(_commision_default),
                     "commission_level_2": float(_commision_level_2_default),
                     "discount": float(_discount_default),
